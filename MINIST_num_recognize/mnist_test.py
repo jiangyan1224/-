@@ -19,6 +19,8 @@ def test(mnist):
         saver=tf.train.Saver(ema_restore)
 
         #正确率的式子
+        #利用tf.argmax()按行求出真实值y_、预测值y最大值的下标，
+        #用tf.equal()求出真实值和预测值相等的数量，也就是预测结果正确的数量，tf.argmax()和tf.equal()一般是结合着用。
         correct_prediction=tf.equal(tf.argmax(y,1),tf.argmax(y_,1))
         accurancy=tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 

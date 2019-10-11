@@ -51,6 +51,17 @@ def backward(mnist):
     with tf.Session() as sess:
         init_op = tf.global_variables_initializer()
         sess.run(init_op)
+        
+
+        #断点续训！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        #在这里加载ckpt断点，如果已经有训练过的模型，将其恢复到当前会话，
+        #给所有的w b赋值为保存在ckpt里的值，实现断点续训
+        ckpt=tf.train.get_checkpoint_state(MODEL_SAVE_PATH)
+        if ckpt and ckpt.model_checkpoint_path:
+            saver.restore(sess,ckpt.model_checkpoint_path)
+
+
+
 
         for i in range(STEPS):
             # 按批次训练，一次BATCH_SIZE个图片和标签
